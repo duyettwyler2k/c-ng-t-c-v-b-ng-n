@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="power"></p>
+<div id="Div"></div><br>
+<button type="button" onclick="Get()">Get Battery</button>
+<button type="button" onclick="Set()">Set Battery</button>
+<button type="button" onclick="charge()">Charge</button>
+<button type="button" onclick="turnOnTheLight()">Turn On The Light</button>
+<button type="button" onclick="turnOffTheLight()">Turn Off The Light</button>
+<script>
+    class Battery{
+        energy;
+        constructor(energy) {
+            this.energy = energy;
+        }
+        getEnergy(){
+            return this.energy;
+        }
+        setEnergy(energy){
+            this.energy = energy;
+        }
+        decreaseEnergy(){
+            if(this.energy > 0){
+                this.energy--;
+            }
+        }
+        chargeEnergy(){
+            if(this.energy < 100){
+                this.energy++;
+            } else if (this.energy == 100){
+                alert("Full of Energy")
+            }
+        }
+    }
+    class FlashLamp{
+        battery;
+        constructor(battery) {
+            this.battery = battery;
+            this.status = status;
+            this.picture1 = "<img src='light-bulb-02.jpg' height='200' width='200'/>"
+            this.picture2 = "<img src='tải xuống.jpg' height='261' width='193'/>"
+        }
+        getBattery(){
+            return this.battery.getEnergy();
+        }
+        setBattery(){
+            this.battery = battery;
+        }
+        turnOn(){
+            this.status = true;
+        }
+        turnOff(){
+            this.status = false;
+        }
+        light(status){
+            if (this.status){
+                return this.picture1;
+            } else {
+                return this.picture2;
+            }
+        }
+    }
+    let power = new Battery(100);
+    let lamp = new FlashLamp(power);
+    alert()
+    // Lấy ra giá trị của Battery
+    function Get() {
+        // var pic = "<img src='031-Landscape02.png' height='320' width='640'/>"
+        document.getElementById("power").innerHTML = "Power: " + lamp.getBattery() + "%"
+        // document.getElementById("Div").innerHTML = pic;
+    }
+    // Đặt lại giá trị Battery
+    function Set() {
+        var setUp = prompt("Enter the number u want to change")
+        power.setEnergy(setUp);
+        document.getElementById("power").innerHTML = "Power: " + lamp.getBattery() + "%"
+    }
+    // Sạc đèn
+    function charge() {
+        power.chargeEnergy()
+        document.getElementById("power").innerHTML = "Power: " + power.getEnergy() + "%"
+    }
+    // Bật đèn
+    function turnOnTheLight() {
+        document.getElementById("Div").innerHTML = lamp.light(lamp.turnOn());
+        power.decreaseEnergy()
+        document.getElementById("power").innerHTML = "Power: " + power.getEnergy() + "%"
+    }
+    function turnOffTheLight() {
+        document.getElementById("Div").innerHTML = lamp.light(lamp.turnOff());
+        power.decreaseEnergy()
+        document.getElementById("power").innerHTML = "Power: " + power.getEnergy() + "%"
+    }
+</script>
+</body>
+</html>
